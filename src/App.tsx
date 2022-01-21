@@ -1,10 +1,22 @@
 import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {
+  Application,
+  ApplicationCreate,
+  ApplicationInquiry,
+  ApplicationSuccessfull,
+} from './pages'
 
 function App() {
   return (
-    <div className="underline font-Nunito font-bold text-2xl text-slate-500">
-      Hello World
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/basvuru-olustur" element={<ApplicationCreate />} />
+        <Route path="/basvuru-sorgula" element={<ApplicationInquiry />} />
+        <Route path="/basvuru-basarili" element={<ApplicationSuccessfull />} />
+        <Route path="/basvuru/:id" element={<Application />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
