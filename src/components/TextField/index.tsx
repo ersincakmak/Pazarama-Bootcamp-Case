@@ -30,6 +30,7 @@ const TextField: React.FC<Props & FieldHookConfig<string>> = ({
           placeholder={props.placeholder}
           minRows={2}
           className={className}
+          data-testid="textarea"
         />
       ) : (
         <input
@@ -38,6 +39,7 @@ const TextField: React.FC<Props & FieldHookConfig<string>> = ({
           type={type}
           placeholder={props.placeholder}
           className={className}
+          data-testid="input"
         />
       )}
       {meta.touched && meta.error && (
