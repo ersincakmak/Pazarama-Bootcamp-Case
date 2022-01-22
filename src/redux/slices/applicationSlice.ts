@@ -1,14 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../constants/axios'
-import {
-  IApplication,
-  IApplicationState,
-  ICreateApplicationPayload,
-} from '../../types/application'
+import { IApplication, IApplicationState } from '../../types/application'
 
 export const createApplication = createAsyncThunk(
   'application/create',
-  async (payload: ICreateApplicationPayload, { rejectWithValue }) => {
+  async (payload: FormData, { rejectWithValue }) => {
     try {
       const { data } = await api.request<IApplication>({
         method: 'POST',

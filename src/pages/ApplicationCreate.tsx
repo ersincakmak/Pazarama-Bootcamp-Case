@@ -1,9 +1,14 @@
 import { FormikProvider, useFormik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import { DropEvent, FileRejection } from 'react-dropzone'
+import { useNavigate } from 'react-router-dom'
 import DropZone from '../components/DropZone'
 import ImagePreview from '../components/ImagePreview'
+import Spinner from '../components/Spinner'
 import TextField from '../components/TextField'
+import { createApplication } from '../redux/slices/applicationSlice'
+import { useAppDispatch } from '../redux/store'
+import { ICreateApplicationPayload } from '../types/application'
 import createApplicationSchema from '../validations/Application'
 
 type Props = {
@@ -23,19 +28,36 @@ FieldWrapper.defaultProps = {
 }
 
 const ApplicationCreate = () => {
-  const formik = useFormik({
+  const [loading, setLoading] = useState(false)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const formik = useFormik<ICreateApplicationPayload>({
     initialValues: {
       firstName: '',
       lastName: '',
-      age: null,
+      age: Number(undefined),
       tcNo: '',
       address: '',
       applicationReason: '',
       files: [],
     },
     validationSchema: createApplicationSchema,
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      const formData = new FormData()
+      const { files, ...rest } = values
+      files.forEach((file) => {
+        formData.append('files', file, file.name)
+      })
+      Object.entries(rest).forEach((item) => {
+        formData.append(item[0], item[1])
+      })
+      setLoading(true)
+      const { meta } = await dispatch(createApplication(formData))
+      if (meta.requestStatus === 'fulfilled') {
+        navigate('/basvuru-basarili')
+      }
+      setLoading(false)
     },
   })
 
@@ -103,9 +125,11 @@ const ApplicationCreate = () => {
           <button
             type="submit"
             className="w-max px-3.5 py-1.5 font-semibold transition cursor-pointer bg-teal-500
-            rounded hover:bg-teal-600 text-white outline-none focus:ring-4 focus:ring-teal-300"
+            rounded hover:bg-teal-600 text-white outline-none focus:ring-4 focus:ring-teal-300
+            disabled:cursor-not-allowed min-w-[6rem] flex justify-center items-center"
+            disabled={loading}
           >
-            Create
+            {loading ? <Spinner size="sm" /> : 'Create'}
           </button>
         </form>
       </FormikProvider>
