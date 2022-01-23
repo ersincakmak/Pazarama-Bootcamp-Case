@@ -11,7 +11,9 @@ export const login = createAsyncThunk(
         method: 'POST',
         url: 'admin/login',
         data: payload,
-        headers: getHeaders(),
+        headers: {
+          Authorization: getHeaders(),
+        },
       })
       localStorage.setItem('token', data.data.accessToken as string)
       return data.data as IUser
@@ -28,7 +30,9 @@ export const getMe = createAsyncThunk(
       const { data } = await api.request({
         method: 'GET',
         url: 'admin/getMe',
-        headers: getHeaders(),
+        headers: {
+          Authorization: getHeaders(),
+        },
       })
       return data.data as IUser
     } catch (error) {
@@ -45,7 +49,9 @@ export const getApplications = createAsyncThunk(
       const { data } = await api.request({
         method: 'GET',
         url: 'admin/applications',
-        headers: getHeaders(),
+        headers: {
+          Authorization: getHeaders(),
+        },
       })
       return data.data as IApplication[]
     } catch (error) {
@@ -61,7 +67,9 @@ export const getOneApplication = createAsyncThunk(
       const { data } = await api.request({
         method: 'GET',
         url: `application/${id}`,
-        headers: getHeaders(),
+        headers: {
+          Authorization: getHeaders(),
+        },
       })
       return data.data as IApplication
     } catch (error) {
@@ -89,6 +97,9 @@ export const updateApplicationStatus = createAsyncThunk(
         data: {
           status,
         },
+        headers: {
+          Authorization: getHeaders(),
+        },
       })
       return data.data as IApplication
     } catch (error) {
@@ -115,6 +126,9 @@ export const createAnswer = createAsyncThunk(
         url: `admin/application/create-answer/${id}`,
         data: {
           message,
+        },
+        headers: {
+          Authorization: getHeaders(),
         },
       })
       return data.data as IApplication
