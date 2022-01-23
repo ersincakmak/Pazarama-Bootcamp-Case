@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import {
+  AdminLogin,
   Application,
   ApplicationCreate,
   ApplicationInquiry,
@@ -15,6 +16,7 @@ const App = () => (
       <Route path="/basvuru-sorgula" element={<ApplicationInquiry />} />
       <Route path="/basvuru-basarili" element={<ApplicationSuccessfull />} />
       <Route path="/basvuru/:id" element={<Application />} />
+      <Route path="/admin" element={<AdminLogin />} />
       <Route path="/" element={<Navigate to="/basvuru-olustur" />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
