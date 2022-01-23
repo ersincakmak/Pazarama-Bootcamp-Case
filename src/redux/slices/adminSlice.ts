@@ -44,7 +44,12 @@ const initialState: IUserState = {
 const adminSlice = createSlice({
   name: 'admin',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = null
+      localStorage.removeItem('token')
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
@@ -65,5 +70,7 @@ const adminSlice = createSlice({
       })
   },
 })
+
+export const { logout } = adminSlice.actions
 
 export default adminSlice.reducer
