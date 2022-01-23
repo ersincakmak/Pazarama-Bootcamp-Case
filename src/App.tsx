@@ -5,6 +5,7 @@ import {
   ApplicationCreate,
   ApplicationInquiry,
   ApplicationSuccessfull,
+  NotFound,
 } from './pages'
 
 const App = () => (
@@ -14,7 +15,8 @@ const App = () => (
       <Route path="/basvuru-sorgula" element={<ApplicationInquiry />} />
       <Route path="/basvuru-basarili" element={<ApplicationSuccessfull />} />
       <Route path="/basvuru/:id" element={<Application />} />
-      <Route path="*" element={<Navigate to="/basvuru-olustur" />} />
+      <Route path="/" element={<Navigate to="/basvuru-olustur" />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 )
