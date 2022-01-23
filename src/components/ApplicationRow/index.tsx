@@ -13,7 +13,7 @@ const ApplicationRow: React.FC<Props> = ({ application }) => {
   const navigate = useNavigate()
 
   const handleViewClick = () => {
-    navigate(`/admin/application/${application._id}`)
+    navigate(`/admin/basvuru/${application._id}`)
   }
 
   return (
