@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { FaTimes } from 'react-icons/fa'
@@ -23,6 +21,7 @@ const ImagePreview: React.FC<Props> = ({ file, onDelete }) => {
   return (
     <>
       <div
+        role="contentinfo"
         data-testid="image-modal-text"
         onClick={openModal}
         className="border-2 border-stone-300 hover:border-stone-500 cursor-pointer transition w-max max-w-full
