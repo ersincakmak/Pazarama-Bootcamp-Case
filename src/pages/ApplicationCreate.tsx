@@ -70,10 +70,13 @@ const ApplicationCreate = () => {
       (item) =>
         !formik.values.files.map((file) => file.name).includes(item.name)
     )
-    formik.setFieldValue(
-      'files',
-      Array.from(new Set([...formik.values.files, ...filteredAcceptedFiles]))
-    )
+
+    if (formik.values.files.length < 5) {
+      formik.setFieldValue(
+        'files',
+        Array.from(new Set([...formik.values.files, ...filteredAcceptedFiles]))
+      )
+    }
   }
 
   const onFileDelete = (name: string) => {
