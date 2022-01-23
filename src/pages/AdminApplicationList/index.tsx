@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import AdminNav from '../components/AdminNav'
-import ApplicationRow from '../components/ApplicationRow'
-import Spinner from '../components/Spinner'
-import { getApplications } from '../redux/slices/adminSlice'
-import { useAppDispatch, useAppSelector } from '../redux/store'
+import AdminNav from '../../components/AdminNav'
+import ApplicationRow from '../../components/ApplicationRow'
+import Spinner from '../../components/Spinner'
+import { getApplications } from '../../redux/slices/adminSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 
 const AdminApplications = () => {
   const [loading, setLoading] = useState(false)

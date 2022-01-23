@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { NotFound } from '.'
-import ApplicationDetail from '../components/ApplicationDetail'
-import PageLoading from '../components/PageLoading'
-import api from '../constants/axios'
-import { IApplication } from '../types/application'
+import { NotFound } from '..'
+import ApplicationDetail from '../../components/ApplicationDetail'
+import PageLoading from '../../components/PageLoading'
+import api from '../../constants/axios'
+import { IApplication } from '../../types/application'
 
 const Application = () => {
   const { id } = useParams()

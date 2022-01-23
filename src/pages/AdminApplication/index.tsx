@@ -3,19 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { NotFound } from '.'
-import AdminNav from '../components/AdminNav'
-import ApplicationDetail from '../components/ApplicationDetail'
-import PageLoading from '../components/PageLoading'
-import Spinner from '../components/Spinner'
+import { NotFound } from '..'
+import AdminNav from '../../components/AdminNav'
+import ApplicationDetail from '../../components/ApplicationDetail'
+import PageLoading from '../../components/PageLoading'
+import Spinner from '../../components/Spinner'
 import {
   createAnswer,
   getOneApplication,
   updateApplicationStatus,
-} from '../redux/slices/adminSlice'
-import { useAppDispatch, useAppSelector } from '../redux/store'
-import { IStatus } from '../types/application'
-import { createAnswerSchema } from '../validations/Application'
+} from '../../redux/slices/adminSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { IStatus } from '../../types/application'
+import { createAnswerSchema } from '../../validations/Application'
 
 const toastInstance = (toastMessage: string) =>
   toast.error(toastMessage || 'Error', {

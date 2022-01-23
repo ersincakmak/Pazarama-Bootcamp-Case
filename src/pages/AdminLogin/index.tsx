@@ -2,11 +2,11 @@ import { FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import FieldWrapper from '../components/FieldWrapper'
-import Spinner from '../components/Spinner'
-import TextField from '../components/TextField'
-import { login } from '../redux/slices/adminSlice'
-import { useAppDispatch, useAppSelector } from '../redux/store'
+import FieldWrapper from '../../components/FieldWrapper'
+import Spinner from '../../components/Spinner'
+import TextField from '../../components/TextField'
+import { login } from '../../redux/slices/adminSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 
 const AdminLogin = () => {
   const [loading, setLoading] = useState(false)

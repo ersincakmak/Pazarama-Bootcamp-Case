@@ -1,8 +1,8 @@
 import React from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { Link, Navigate } from 'react-router-dom'
-import ApplicationDetail from '../components/ApplicationDetail'
-import { useAppSelector } from '../redux/store'
+import ApplicationDetail from '../../components/ApplicationDetail'
+import { useAppSelector } from '../../redux/store'
 
 const ApplicationSuccessfull = () => {
   const { application } = useAppSelector((state) => state.application)

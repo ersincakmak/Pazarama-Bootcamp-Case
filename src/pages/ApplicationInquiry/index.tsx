@@ -1,8 +1,8 @@
 import { FormikProvider, useFormik } from 'formik'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import TextField from '../components/TextField'
-import { applicationInquirySchema } from '../validations/Application'
+import TextField from '../../components/TextField'
+import { applicationInquirySchema } from '../../validations/Application'
 
 const ApplicationInquiry = () => {
   const navigate = useNavigate()
