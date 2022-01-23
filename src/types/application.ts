@@ -22,7 +22,7 @@ export interface ICreateApplicationPayload {
 }
 
 export interface IApplicationState {
-  application: IApplication
+  application: IApplication | null
   message: string
 }
 

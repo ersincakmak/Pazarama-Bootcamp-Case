@@ -22,18 +22,7 @@ export const createApplication = createAsyncThunk(
 )
 
 const initialState: IApplicationState = {
-  application: {
-    _id: '',
-    address: '',
-    age: 0,
-    answers: [],
-    applicationReason: '',
-    files: [],
-    firstName: '',
-    lastName: '',
-    status: 'waiting',
-    tcNo: '',
-  },
+  application: null,
   message: '',
 }
 
@@ -50,7 +39,7 @@ export const sliceName = createSlice({
         state.application = action.payload
       })
       .addCase(createApplication.rejected, (state, action) => {
-        state.application = initialState.application
+        state.application = null
         state.message = action.payload as string
       })
   },
