@@ -7,10 +7,16 @@ interface Props {
     fileRejections: FileRejection[],
     event: DropEvent
   ) => void | undefined
+  accept: string | string[]
+  maxFiles: number
 }
 
-const DropZone: React.FC<Props> = ({ onDrop }) => {
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+const DropZone: React.FC<Props> = ({ onDrop, accept, maxFiles }) => {
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept,
+    maxFiles,
+  })
 
   return (
     <div

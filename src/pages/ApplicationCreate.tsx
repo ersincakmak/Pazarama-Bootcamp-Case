@@ -66,7 +66,10 @@ const ApplicationCreate = () => {
     fileRejections: FileRejection[],
     event: DropEvent
   ) => void = (acceptedFiles: File[]) => {
-    formik.setFieldValue('files', acceptedFiles)
+    formik.setFieldValue(
+      'files',
+      Array.from(new Set([...formik.values.files, ...acceptedFiles]))
+    )
   }
 
   return (
@@ -111,7 +114,7 @@ const ApplicationCreate = () => {
           </FieldWrapper>
           <FieldWrapper className="flex flex-col gap-3">
             <p>File(s)</p>
-            <DropZone onDrop={onDrop} />
+            <DropZone onDrop={onDrop} accept="image/*" maxFiles={3} />
           </FieldWrapper>
           {formik.values.files.length > 0 && (
             <FieldWrapper className="flex flex-col gap-3">
