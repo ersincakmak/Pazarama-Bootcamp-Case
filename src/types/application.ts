@@ -9,6 +9,8 @@ export interface IApplication {
   answers: any[] // todo
   status: IStatus
   _id: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface ICreateApplicationPayload {
