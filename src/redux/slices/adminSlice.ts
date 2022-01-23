@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../constants/axios'
 import { ILoginPayload, IUser, IUserState } from '../../types/admin'
+import { IApplication } from '../../types/application'
 
 export const login = createAsyncThunk(
   'admin/login',
@@ -28,6 +29,22 @@ export const getMe = createAsyncThunk(
         url: 'admin/getMe',
       })
       return data.data as IUser
+    } catch (error) {
+      localStorage.removeItem('token')
+      return rejectWithValue((error as any).response.data.message as string)
+    }
+  }
+)
+
+export const getApplications = createAsyncThunk(
+  'admin/getApplications',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.request({
+        method: 'GET',
+        url: 'admin/applications',
+      })
+      return data.data as IApplication[]
     } catch (error) {
       localStorage.removeItem('token')
       return rejectWithValue((error as any).response.data.message as string)
@@ -67,6 +84,16 @@ const adminSlice = createSlice({
       })
       .addCase(getMe.rejected, (state) => {
         state.user = null
+      })
+
+    builder
+      .addCase(getApplications.fulfilled, (state, action) => {
+        state.applications = action.payload
+        state.message = ''
+      })
+      .addCase(getApplications.rejected, (state, action) => {
+        state.applications = []
+        state.message = action.payload as string
       })
   },
 })
