@@ -12,22 +12,7 @@ import { createApplication } from '../redux/slices/applicationSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { ICreateApplicationPayload } from '../types/application'
 import createApplicationSchema from '../validations/Application'
-
-type Props = {
-  className?: string
-}
-
-const FieldWrapper: React.FC<Props> = ({ children, className }) => (
-  <div
-    className={`p-3 bg-white rounded-xl border-2 border-slate-300 shadow-md ${className}`}
-  >
-    {children}
-  </div>
-)
-
-FieldWrapper.defaultProps = {
-  className: '',
-}
+import FieldWrapper from '../components/FieldWrapper'
 
 const ApplicationCreate = () => {
   const [loading, setLoading] = useState(false)
