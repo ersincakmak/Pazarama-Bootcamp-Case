@@ -26,13 +26,14 @@ const AdminApplications = () => {
       <AdminNav />
       <div className="max-w-xl w-full flex flex-col gap-2 mx-auto">
         <h1 className="font-bold text-2xl mb-4">Application List</h1>
-        {loading ? (
+        {loading && (
           <div className="flex-1 flex items-center justify-center">
             <Spinner size="xl" />
           </div>
-        ) : (
-          applications.map((item) => <ApplicationRow application={item} />)
         )}
+        {applications.length < 1
+          ? 'There is no application yet.'
+          : applications.map((item) => <ApplicationRow application={item} />)}
       </div>
     </div>
   )
