@@ -17,4 +17,8 @@ const createApplicationSchema = yup.object().shape({
   address: yup.string().required().min(5).label('Address'),
 })
 
+export const applicationInquirySchema = yup.object().shape({
+  code: yup.string().required().label('Code'),
+})
+
 export default createApplicationSchema
