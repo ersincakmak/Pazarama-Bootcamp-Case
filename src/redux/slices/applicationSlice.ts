@@ -6,7 +6,7 @@ export const createApplication = createAsyncThunk(
   'application/create',
   async (payload: FormData, { rejectWithValue }) => {
     try {
-      const { data } = await api.request<IApplication>({
+      const { data } = await api.request({
         method: 'POST',
         data: payload,
         url: 'create-application',
@@ -14,7 +14,7 @@ export const createApplication = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       })
-      return data as IApplication
+      return data.data as IApplication
     } catch (error) {
       return rejectWithValue((error as any).response.data.message)
     }
