@@ -36,7 +36,7 @@ const ApplicationCreate = () => {
     initialValues: {
       firstName: '',
       lastName: '',
-      age: Number(undefined),
+      age: '',
       tcNo: '',
       address: '',
       applicationReason: '',
@@ -66,9 +66,20 @@ const ApplicationCreate = () => {
     fileRejections: FileRejection[],
     event: DropEvent
   ) => void = (acceptedFiles: File[]) => {
+    const filteredAcceptedFiles = acceptedFiles.filter(
+      (item) =>
+        !formik.values.files.map((file) => file.name).includes(item.name)
+    )
     formik.setFieldValue(
       'files',
-      Array.from(new Set([...formik.values.files, ...acceptedFiles]))
+      Array.from(new Set([...formik.values.files, ...filteredAcceptedFiles]))
+    )
+  }
+
+  const onFileDelete = (name: string) => {
+    formik.setFieldValue(
+      'files',
+      formik.values.files.filter((item) => item.name !== name)
     )
   }
 
@@ -120,8 +131,11 @@ const ApplicationCreate = () => {
             <FieldWrapper className="flex flex-col gap-3">
               <p>File(s) Preview</p>
               {formik.values.files.map((item) => (
-                // @ts-ignore
-                <ImagePreview file={item} key={`files_${item.name}`} />
+                <ImagePreview
+                  file={item}
+                  key={`files_${item.name}`}
+                  onDelete={onFileDelete}
+                />
               ))}
             </FieldWrapper>
           )}

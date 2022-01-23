@@ -14,7 +14,7 @@ export interface IApplication {
 export interface ICreateApplicationPayload {
   firstName: string
   lastName: string
-  age: number
+  age: number | ''
   tcNo: string
   address: string
   applicationReason: string
