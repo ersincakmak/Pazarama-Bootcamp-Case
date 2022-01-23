@@ -14,7 +14,7 @@ const AdminNav = () => {
   return (
     <div
       className="bg-orange-50 p-3 px-6 border-b-2 border-orange-500 sticky w-full top-0
-        "
+        z-20"
     >
       <div className="container flex items-center justify-between mx-auto">
         <Link

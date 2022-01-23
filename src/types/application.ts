@@ -6,11 +6,20 @@ export interface IApplication {
   address: string
   applicationReason: string
   files: string[]
-  answers: any[] // todo
+  answers: IAnswer[]
   status: IStatus
   _id: string
   createdAt: string
   updatedAt: string
+}
+
+interface IAnswer {
+  _id: string
+  message: string
+  author: {
+    username: string
+    name: string
+  }
 }
 
 export interface ICreateApplicationPayload {

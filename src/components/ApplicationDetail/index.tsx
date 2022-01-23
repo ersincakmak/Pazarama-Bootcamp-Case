@@ -21,6 +21,38 @@ const ApplicationDetail: React.FC<Props> = ({ application }) => (
     <FieldDisplay title="Application Reason">
       {application.applicationReason}
     </FieldDisplay>
+    <FieldDisplay title="Files">
+      <div className="flex gap-2 flex-wrap">
+        {application.files.length < 1
+          ? 'There is no files'
+          : application.files.map((item, index) => (
+              <a
+                href={`${process.env.REACT_APP_API_URL}uploads/${item}`}
+                target="_blank"
+                key={item}
+                rel="noreferrer"
+                className="text-blue-400 underline"
+              >
+                image_{index}
+              </a>
+            ))}
+      </div>
+    </FieldDisplay>
+    <div className="flex flex-col gap-2">
+      <p className="font-semibold text-lg">Answers</p>
+      <div className="flex flex-col gap-2">
+        {application.answers.length < 1
+          ? 'There is no answer'
+          : application.answers.map((item) => (
+              <div key={item._id}>
+                <p className="font-semibold text-orange-600">
+                  @{item.author.username}
+                </p>
+                <p className="text-sm">{item.message}</p>
+              </div>
+            ))}
+      </div>
+    </div>
   </div>
 )
 

@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import Spinner from './components/Spinner'
 import {
+  AdminApplication,
   AdminApplicationList,
   AdminLogin,
   Application,
@@ -49,6 +50,7 @@ const App = () => {
             path="admin/basvuru-listesi"
             element={<AdminApplicationList />}
           />
+          <Route path="admin/basvuru/:id" element={<AdminApplication />} />
         </Route>
         <Route path="/" element={<Navigate to="/basvuru-olustur" />} />
         <Route path="*" element={<NotFound />} />

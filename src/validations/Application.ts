@@ -21,4 +21,8 @@ export const applicationInquirySchema = yup.object().shape({
   code: yup.string().required().label('Code'),
 })
 
+export const createAnswerSchema = yup.object().shape({
+  answer: yup.string().min(5).required().label('Answer'),
+})
+
 export default createApplicationSchema
