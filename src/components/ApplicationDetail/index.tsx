@@ -18,7 +18,7 @@ const ApplicationDetail: React.FC<Props> = ({ application }) => (
     <FieldDisplay title="Age">{application?.age}</FieldDisplay>
     <FieldDisplay title="Tc No">{application?.tcNo}</FieldDisplay>
     <FieldDisplay title="Address">{application?.address}</FieldDisplay>
-    <FieldDisplay title="application? Reason">
+    <FieldDisplay title="Application Reason">
       {application?.applicationReason}
     </FieldDisplay>
     <FieldDisplay title="Files">
