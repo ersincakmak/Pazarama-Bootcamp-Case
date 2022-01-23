@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import applicationSlice from './slices/applicationSlice'
+import adminReducer from './slices/adminSlice'
+import applicationReducer from './slices/applicationSlice'
 
 const store = configureStore({
   reducer: {
-    application: applicationSlice,
+    application: applicationReducer,
+    admin: adminReducer,
   },
 })
 

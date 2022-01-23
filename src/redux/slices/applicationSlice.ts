@@ -26,7 +26,7 @@ const initialState: IApplicationState = {
   message: '',
 }
 
-export const sliceName = createSlice({
+export const applicationSlice = createSlice({
   name: 'application',
   initialState,
   reducers: {},
@@ -45,4 +45,4 @@ export const sliceName = createSlice({
   },
 })
 
-export default sliceName.reducer
+export default applicationSlice.reducer
