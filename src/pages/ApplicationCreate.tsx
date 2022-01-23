@@ -2,12 +2,14 @@ import { FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { DropEvent, FileRejection } from 'react-dropzone'
 import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import DropZone from '../components/DropZone'
 import ImagePreview from '../components/ImagePreview'
 import Spinner from '../components/Spinner'
 import TextField from '../components/TextField'
 import { createApplication } from '../redux/slices/applicationSlice'
-import { useAppDispatch } from '../redux/store'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 import { ICreateApplicationPayload } from '../types/application'
 import createApplicationSchema from '../validations/Application'
 
@@ -29,6 +31,7 @@ FieldWrapper.defaultProps = {
 
 const ApplicationCreate = () => {
   const [loading, setLoading] = useState(false)
+  const { message } = useAppSelector((state) => state.application)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -56,6 +59,16 @@ const ApplicationCreate = () => {
       const { meta } = await dispatch(createApplication(formData))
       if (meta.requestStatus === 'fulfilled') {
         navigate('/basvuru-basarili')
+      } else {
+        toast.error(message || 'Error', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       }
       setLoading(false)
     },
@@ -88,6 +101,7 @@ const ApplicationCreate = () => {
 
   return (
     <div className="w-screen h-screen overflow-auto flex flex-col gap-2 p-3 bg-orange-100">
+      <ToastContainer />
       <FormikProvider value={formik}>
         <h1 className="text-3xl text-center">Create an Application</h1>
         <form
