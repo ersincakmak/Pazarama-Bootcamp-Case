@@ -1,13 +1,12 @@
 import { FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import FieldWrapper from '../components/FieldWrapper'
 import Spinner from '../components/Spinner'
 import TextField from '../components/TextField'
 import { login } from '../redux/slices/adminSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
-import 'react-toastify/dist/ReactToastify.css'
 
 const AdminLogin = () => {
   const [loading, setLoading] = useState(false)
@@ -43,7 +42,6 @@ const AdminLogin = () => {
 
   return (
     <div className="bg-orange-100 w-screen h-screen overflow-auto flex flex-col p-3">
-      <ToastContainer />
       <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit} className="max-w-xl w-full m-auto">
           <FieldWrapper className="flex flex-col gap-3">

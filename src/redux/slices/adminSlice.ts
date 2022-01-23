@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../constants/axios'
 import { ILoginPayload, IUser, IUserState } from '../../types/admin'
-import { IApplication } from '../../types/application'
+import { IApplication, IStatus } from '../../types/application'
 
 export const login = createAsyncThunk(
   'admin/login',
@@ -46,7 +46,75 @@ export const getApplications = createAsyncThunk(
       })
       return data.data as IApplication[]
     } catch (error) {
-      localStorage.removeItem('token')
+      return rejectWithValue((error as any).response.data.message as string)
+    }
+  }
+)
+
+export const getOneApplication = createAsyncThunk(
+  'admin/getOneApplication',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data } = await api.request({
+        method: 'GET',
+        url: `application/${id}`,
+      })
+      return data.data as IApplication
+    } catch (error) {
+      return rejectWithValue((error as any).response.data.message as string)
+    }
+  }
+)
+
+export const updateApplicationStatus = createAsyncThunk(
+  'admin/updateApplicationStatus',
+  async (
+    {
+      id,
+      status,
+    }: {
+      id: string
+      status: IStatus
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await api.request({
+        method: 'PATCH',
+        url: `admin/application/update-status/${id}`,
+        data: {
+          status,
+        },
+      })
+      return data.data as IApplication
+    } catch (error) {
+      return rejectWithValue((error as any).response.data.message as string)
+    }
+  }
+)
+
+export const createAnswer = createAsyncThunk(
+  'admin/createAnswer',
+  async (
+    {
+      id,
+      message,
+    }: {
+      id: string
+      message: string
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await api.request({
+        method: 'POST',
+        url: `admin/application/create-answer/${id}`,
+        data: {
+          message,
+        },
+      })
+      return data.data as IApplication
+    } catch (error) {
       return rejectWithValue((error as any).response.data.message as string)
     }
   }
@@ -54,6 +122,7 @@ export const getApplications = createAsyncThunk(
 
 const initialState: IUserState = {
   applications: [],
+  application: null,
   user: null,
   message: '',
 }
@@ -93,6 +162,34 @@ const adminSlice = createSlice({
       })
       .addCase(getApplications.rejected, (state, action) => {
         state.applications = []
+        state.message = action.payload as string
+      })
+
+    builder
+      .addCase(getOneApplication.fulfilled, (state, action) => {
+        state.application = action.payload
+        state.message = ''
+      })
+      .addCase(getOneApplication.rejected, (state, action) => {
+        state.application = null
+        state.message = action.payload as string
+      })
+
+    builder
+      .addCase(updateApplicationStatus.fulfilled, (state, action) => {
+        state.application = action.payload
+        state.message = ''
+      })
+      .addCase(updateApplicationStatus.rejected, (state, action) => {
+        state.message = action.payload as string
+      })
+
+    builder
+      .addCase(createAnswer.fulfilled, (state, action) => {
+        state.application = action.payload
+        state.message = ''
+      })
+      .addCase(createAnswer.rejected, (state, action) => {
         state.message = action.payload as string
       })
   },

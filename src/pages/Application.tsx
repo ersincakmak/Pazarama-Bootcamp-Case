@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { NotFound } from '.'
 import ApplicationDetail from '../components/ApplicationDetail'
-import Spinner from '../components/Spinner'
+import PageLoading from '../components/PageLoading'
 import api from '../constants/axios'
 import { IApplication } from '../types/application'
 
@@ -29,27 +30,11 @@ const Application = () => {
   }, [])
 
   if (loading) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-orange-100">
-        <Spinner size="xl" />
-      </div>
-    )
+    return <PageLoading />
   }
 
   if (!application) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center p-3 bg-orange-100">
-        <div className="max-w-xl w-full flex flex-col gap-3 items-center">
-          <p className="text-3xl">404 Not Found</p>
-          <p className="text-center">
-            For another application inquiry go to{' '}
-            <Link to="/basvuru-sorgula" className="text-blue-400 underline">
-              Application Inquiry Page
-            </Link>
-          </p>
-        </div>
-      </div>
-    )
+    return <NotFound />
   }
 
   return (

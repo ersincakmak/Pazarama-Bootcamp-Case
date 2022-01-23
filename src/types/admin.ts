@@ -2,6 +2,7 @@ import { IApplication } from './application'
 
 export interface IUserState {
   applications: IApplication[]
+  application: IApplication | null
   user: IUser | null
   message: string
 }

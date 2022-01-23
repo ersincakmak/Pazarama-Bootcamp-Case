@@ -2,9 +2,9 @@ import { FormikProvider, useFormik } from 'formik'
 import React, { useState } from 'react'
 import { DropEvent, FileRejection } from 'react-dropzone'
 import { useNavigate } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { toast } from 'react-toastify'
 import DropZone from '../components/DropZone'
+import FieldWrapper from '../components/FieldWrapper'
 import ImagePreview from '../components/ImagePreview'
 import Spinner from '../components/Spinner'
 import TextField from '../components/TextField'
@@ -12,7 +12,6 @@ import { createApplication } from '../redux/slices/applicationSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { ICreateApplicationPayload } from '../types/application'
 import createApplicationSchema from '../validations/Application'
-import FieldWrapper from '../components/FieldWrapper'
 
 const ApplicationCreate = () => {
   const [loading, setLoading] = useState(false)
@@ -86,7 +85,6 @@ const ApplicationCreate = () => {
 
   return (
     <div className="w-screen h-screen overflow-auto flex flex-col gap-2 p-3 bg-orange-100">
-      <ToastContainer />
       <FormikProvider value={formik}>
         <h1 className="text-3xl text-center">Create an Application</h1>
         <form

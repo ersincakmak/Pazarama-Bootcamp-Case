@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import PageLoading from './components/PageLoading'
 import ProtectedRoute from './components/ProtectedRoute'
-import Spinner from './components/Spinner'
 import {
   AdminApplication,
   AdminApplicationList,
@@ -14,6 +15,7 @@ import {
 } from './pages'
 import { getMe } from './redux/slices/adminSlice'
 import { useAppDispatch } from './redux/store'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
@@ -30,15 +32,12 @@ const App = () => {
   }, [])
 
   if (loading) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-slate-700">
-        <Spinner size="xl" />
-      </div>
-    )
+    return <PageLoading />
   }
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/basvuru-olustur" element={<ApplicationCreate />} />
         <Route path="/basvuru-sorgula" element={<ApplicationInquiry />} />

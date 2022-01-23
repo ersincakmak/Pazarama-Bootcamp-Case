@@ -1,72 +1,79 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { IoIosArrowDown } from 'react-icons/io'
 import { ErrorMessage, Field, FormikProvider, useFormik } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { IoIosArrowDown } from 'react-icons/io'
+import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { NotFound } from '.'
 import AdminNav from '../components/AdminNav'
 import ApplicationDetail from '../components/ApplicationDetail'
-import api from '../constants/axios'
-import { IApplication, IStatus } from '../types/application'
+import PageLoading from '../components/PageLoading'
 import Spinner from '../components/Spinner'
+import {
+  createAnswer,
+  getOneApplication,
+  updateApplicationStatus,
+} from '../redux/slices/adminSlice'
+import { useAppDispatch, useAppSelector } from '../redux/store'
+import { IStatus } from '../types/application'
 import { createAnswerSchema } from '../validations/Application'
 
+const toastInstance = (toastMessage: string) =>
+  toast.error(toastMessage || 'Error', {
+    position: 'top-right',
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  })
+
 const AdminApplication = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [statusLoading, setStatusLoading] = useState(false)
   const [answerLoading, setAnswerLoading] = useState(false)
   const [status, setStatus] = useState<IStatus>('waiting')
-  const [application, setApplication] = useState<IApplication | null>(null)
+
+  const { application, message } = useAppSelector((state) => state.admin)
 
   const { id } = useParams()
+  const dispatch = useAppDispatch()
 
   const fetchApplication = async () => {
     setLoading(true)
-    try {
-      const { data } = await api.request({
-        method: 'GET',
-        url: `application/${id}`,
-      })
-      setApplication(data.data as IApplication)
-      setStatus(data.data.status as IStatus)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
+    const { meta } = await dispatch(getOneApplication(id as string))
+    if (meta.requestStatus === 'rejected') {
+      toastInstance(message)
     }
+    setLoading(false)
   }
 
-  const updateApplicationStatus = async () => {
+  const handleUpdateStatus = async () => {
     setStatusLoading(true)
-    try {
-      const { data } = await api.request({
-        method: 'PATCH',
-        url: `admin/application/update-status/${id}`,
-        data: {
-          status,
-        },
+    const { meta } = await dispatch(
+      updateApplicationStatus({
+        id: id as string,
+        status,
       })
-      setApplication(data.data as IApplication)
-      setStatus(data.data.status as IStatus)
-      setStatusLoading(false)
-    } catch (error) {
-      setStatusLoading(false)
+    )
+    if (meta.requestStatus === 'rejected') {
+      toastInstance(message)
     }
+    setStatusLoading(false)
   }
 
-  const createAnswer = async (message: string) => {
+  const handleCreateAnswer = async (answerMessage: string) => {
     setAnswerLoading(true)
-    try {
-      const { data } = await api.request({
-        method: 'POST',
-        url: `admin/application/create-answer/${id}`,
-        data: {
-          message,
-        },
+    const { meta } = await dispatch(
+      createAnswer({
+        id: id as string,
+        message: answerMessage,
       })
-      setApplication(data.data as IApplication)
-      setStatus(data.data.status as IStatus)
-      setAnswerLoading(false)
-    } catch (error) {
-      setAnswerLoading(false)
+    )
+    if (meta.requestStatus === 'rejected') {
+      toastInstance(message)
     }
+    setAnswerLoading(false)
   }
 
   const formik = useFormik({
@@ -75,7 +82,7 @@ const AdminApplication = () => {
     },
     validationSchema: createAnswerSchema,
     onSubmit: async (values, helpers) => {
-      await createAnswer(values.answer)
+      await handleCreateAnswer(values.answer)
       helpers.resetForm()
     },
   })
@@ -85,15 +92,11 @@ const AdminApplication = () => {
   }, [])
 
   if (loading) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-slate-700">
-        <Spinner size="xl" />
-      </div>
-    )
+    return <PageLoading />
   }
 
   if (!application) {
-    return <div>Not Found</div>
+    return <NotFound />
   }
 
   return (
@@ -123,7 +126,7 @@ const AdminApplication = () => {
             className="px-2 py-1 bg-blue-400 hover:bg-blue-500 focus:ring-4 text-white
             focus:ring-blue-300 rounded shadow-sm min-w-[8rem] transition flex items-center
             justify-center"
-            onClick={updateApplicationStatus}
+            onClick={handleUpdateStatus}
             disabled={statusLoading}
           >
             {statusLoading ? <Spinner size="sm" /> : 'Update Status'}
