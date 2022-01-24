@@ -39,6 +39,10 @@ const AdminApplication = () => {
   const { id } = useParams()
   const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    if (application) setStatus(application.status)
+  }, [application])
+
   const fetchApplication = async () => {
     setLoading(true)
     const { meta } = await dispatch(getOneApplication(id as string))
