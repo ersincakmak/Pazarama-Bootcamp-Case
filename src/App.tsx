@@ -16,6 +16,7 @@ import {
 import { getMe } from './redux/slices/adminSlice'
 import { useAppDispatch } from './redux/store'
 import 'react-toastify/dist/ReactToastify.css'
+import SignedRoute from './components/SignedRoute'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
@@ -43,7 +44,9 @@ const App = () => {
         <Route path="/basvuru-sorgula" element={<ApplicationInquiry />} />
         <Route path="/basvuru-basarili" element={<ApplicationSuccessfull />} />
         <Route path="/basvuru/:id" element={<Application />} />
-        <Route path="/admin" element={<AdminLogin />} />
+        <Route element={<SignedRoute />}>
+          <Route path="/admin" element={<AdminLogin />} />
+        </Route>
         <Route element={<ProtectedRoute />}>
           <Route
             path="admin/basvuru-listesi"
