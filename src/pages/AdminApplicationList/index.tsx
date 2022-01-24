@@ -24,7 +24,7 @@ const AdminApplications = () => {
   return (
     <div className="w-screen h-screen overflow-auto flex flex-col gap-3 bg-orange-100">
       <AdminNav />
-      <div className="max-w-xl w-full flex flex-col gap-2 mx-auto">
+      <div className="max-w-xl w-full flex flex-col gap-2 mx-auto px-2">
         <h1 className="font-bold text-2xl mb-4">Application List</h1>
         {loading && (
           <div className="flex-1 flex items-center justify-center">
