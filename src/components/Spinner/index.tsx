@@ -15,6 +15,7 @@ const Spinner: React.FC<Props> = ({ size }) => {
     <span
       className={`border-white border-2 rounded-full inline-block
       animate-spin border-t-transparent ${getSize[size]}`}
+      data-testid="spinner"
     />
   )
 }

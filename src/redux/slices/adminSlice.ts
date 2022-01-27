@@ -7,10 +7,7 @@ export const login = createAsyncThunk(
   'admin/login',
   async (payload: ILoginPayload, { rejectWithValue }) => {
     try {
-      const { data } = await api.request({
-        method: 'POST',
-        url: 'admin/login',
-        data: payload,
+      const { data } = await api.post('admin/login', payload, {
         headers: {
           Authorization: getHeaders(),
         },
@@ -27,9 +24,7 @@ export const getMe = createAsyncThunk(
   'admin/getMe',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.request({
-        method: 'GET',
-        url: 'admin/getMe',
+      const { data } = await api.get('admin/getMe', {
         headers: {
           Authorization: getHeaders(),
         },
@@ -46,9 +41,7 @@ export const getApplications = createAsyncThunk(
   'admin/getApplications',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.request({
-        method: 'GET',
-        url: 'admin/applications',
+      const { data } = await api.get('admin/applications', {
         headers: {
           Authorization: getHeaders(),
         },
@@ -64,9 +57,7 @@ export const getOneApplication = createAsyncThunk(
   'admin/getOneApplication',
   async (id: string, { rejectWithValue }) => {
     try {
-      const { data } = await api.request({
-        method: 'GET',
-        url: `application/${id}`,
+      const { data } = await api.get(`application/${id}`, {
         headers: {
           Authorization: getHeaders(),
         },
@@ -91,16 +82,17 @@ export const updateApplicationStatus = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.request({
-        method: 'PATCH',
-        url: `admin/application/update-status/${id}`,
-        data: {
+      const { data } = await api.patch(
+        `admin/application/update-status/${id}`,
+        {
           status,
         },
-        headers: {
-          Authorization: getHeaders(),
-        },
-      })
+        {
+          headers: {
+            Authorization: getHeaders(),
+          },
+        }
+      )
       return data.data as IApplication
     } catch (error) {
       return rejectWithValue((error as any).response.data.message as string)
@@ -121,16 +113,15 @@ export const createAnswer = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.request({
-        method: 'POST',
-        url: `admin/application/create-answer/${id}`,
-        data: {
-          message,
-        },
-        headers: {
-          Authorization: getHeaders(),
-        },
-      })
+      const { data } = await api.post(
+        `admin/application/create-answer/${id}`,
+        { message },
+        {
+          headers: {
+            Authorization: getHeaders(),
+          },
+        }
+      )
       return data.data as IApplication
     } catch (error) {
       return rejectWithValue((error as any).response.data.message as string)

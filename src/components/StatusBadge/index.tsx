@@ -12,7 +12,14 @@ const StatusBadge: React.FC<Props> = ({ status }) => {
     solved: 'text-green-500',
   }
 
-  return <span className={`p-1 text-sm ${getColor[status]}`}>{status}</span>
+  return (
+    <span
+      className={`p-1 text-sm ${getColor[status]}`}
+      data-testid="status-badge"
+    >
+      {status}
+    </span>
+  )
 }
 
 export default StatusBadge

@@ -13,7 +13,7 @@ export interface IApplication {
   updatedAt: string
 }
 
-interface IAnswer {
+export interface IAnswer {
   _id: string
   message: string
   author: {

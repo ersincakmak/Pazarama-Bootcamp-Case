@@ -6,10 +6,7 @@ export const createApplication = createAsyncThunk(
   'application/create',
   async (payload: FormData, { rejectWithValue }) => {
     try {
-      const { data } = await api.request({
-        method: 'POST',
-        data: payload,
-        url: 'create-application',
+      const { data } = await api.post('create-application', payload, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
