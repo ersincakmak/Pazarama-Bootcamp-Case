@@ -33,7 +33,9 @@ const AdminApplications = () => {
         )}
         {applications.length < 1
           ? 'There is no application yet.'
-          : applications.map((item) => <ApplicationRow application={item} />)}
+          : applications.map((item) => (
+              <ApplicationRow application={item} key={item._id} />
+            ))}
       </div>
     </div>
   )
