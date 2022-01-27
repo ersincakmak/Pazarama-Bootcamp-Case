@@ -22,6 +22,7 @@ const DropZone: React.FC<Props> = ({ onDrop, accept, maxFiles }) => {
     <div
       {...getRootProps()}
       className="border-dashed border-2 border-black rounded-md p-3 h-28 flex items-center justify-center cursor-pointer"
+      data-testid="dropzone-input"
     >
       <input {...getInputProps()} />
       {isDragActive ? (
