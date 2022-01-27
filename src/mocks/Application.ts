@@ -24,3 +24,8 @@ export const ApplicationMockWithAnswer = (answer: IAnswer): IApplication => ({
   ...ApplicationMock,
   answers: [{ ...answer }],
 })
+
+export const ApplicationMockWithFiles = (files: string[]): IApplication => ({
+  ...ApplicationMock,
+  files,
+})

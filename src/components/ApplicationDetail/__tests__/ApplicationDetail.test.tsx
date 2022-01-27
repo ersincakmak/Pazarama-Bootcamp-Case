@@ -1,26 +1,25 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import ApplicationDetail from '..'
-import { IApplication } from '../../../types/application'
-
-const mockApplication: IApplication = {
-  _id: '',
-  address: '',
-  age: 25,
-  answers: [],
-  applicationReason: '',
-  files: [],
-  firstName: '',
-  lastName: '',
-  status: 'waiting',
-  tcNo: '',
-}
+import {
+  ApplicationMock,
+  ApplicationMockWithFiles,
+} from '../../../mocks/Application'
 
 describe('ApplicationDetail test', () => {
-  it('should render correctly', () => {
-    const { baseElement } = render(
-      <ApplicationDetail application={mockApplication} />
+  it('should render correctly without file', () => {
+    const { getByText } = render(
+      <ApplicationDetail application={ApplicationMock} />
     )
-    expect(baseElement).toBeInTheDocument()
+    expect(getByText(/There is no files/i)).toBeInTheDocument()
+  })
+
+  it('should render correctly with file', () => {
+    const { queryByText } = render(
+      <ApplicationDetail
+        application={ApplicationMockWithFiles(['testFileUrl'])}
+      />
+    )
+    expect(queryByText(/There is no files/i)).not.toBeInTheDocument()
   })
 })
