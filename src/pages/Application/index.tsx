@@ -14,10 +14,7 @@ const Application = () => {
   const fetchApplication = async () => {
     setLoading(true)
     try {
-      const { data } = await api.request({
-        method: 'GET',
-        url: `application/${id}`,
-      })
+      const { data } = await api.get(`application/${id}`)
       setApplication(data.data as IApplication)
       setLoading(false)
     } catch (error) {
