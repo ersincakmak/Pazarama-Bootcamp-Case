@@ -50,7 +50,7 @@ describe('AdminLogin Page Test', () => {
     await act(async () => {
       const { getByRole, getByLabelText, getByTestId } = render(renderElement())
 
-      fireEvent.change(
+      await fireEvent.change(
         getByRole('textbox', {
           name: /username/i,
         }),
@@ -61,13 +61,13 @@ describe('AdminLogin Page Test', () => {
         }
       )
 
-      fireEvent.change(getByLabelText(/password/i), {
+      await fireEvent.change(getByLabelText(/password/i), {
         target: {
           value: 'test',
         },
       })
 
-      fireEvent.click(
+      await fireEvent.click(
         getByRole('button', {
           name: /login/i,
         })
@@ -85,7 +85,7 @@ describe('AdminLogin Page Test', () => {
     await act(async () => {
       const { getByRole, getByLabelText, getByTestId } = render(renderElement())
 
-      fireEvent.change(
+      await fireEvent.change(
         getByRole('textbox', {
           name: /username/i,
         }),
@@ -96,13 +96,13 @@ describe('AdminLogin Page Test', () => {
         }
       )
 
-      fireEvent.change(getByLabelText(/password/i), {
+      await fireEvent.change(getByLabelText(/password/i), {
         target: {
           value: 'test',
         },
       })
 
-      fireEvent.click(
+      await fireEvent.click(
         getByRole('button', {
           name: /login/i,
         })

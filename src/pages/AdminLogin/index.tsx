@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner'
 import TextField from '../../components/TextField'
 import { login } from '../../redux/slices/adminSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
+import adminLoginSchema from '../../validations/Admin'
 
 const AdminLogin = () => {
   const [loading, setLoading] = useState(false)
@@ -20,6 +21,7 @@ const AdminLogin = () => {
       username: '',
       password: '',
     },
+    validationSchema: adminLoginSchema,
     onSubmit: async (values) => {
       setLoading(true)
       const { meta } = await dispatch(login(values))
