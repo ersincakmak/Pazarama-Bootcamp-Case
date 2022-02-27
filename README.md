@@ -1,6 +1,6 @@
 # Pazarama Case
 
-This project created for pazarama case. You can reach backend part of on [this](https://github.com/ersincakmak/pazarama-case-backend) link.
+This project created for pazarama case. I also created my own backend. You can reach backend part of on [this](https://github.com/ersincakmak/pazarama-case-backend) link.
 
 ## Demo
 
